@@ -1,0 +1,392 @@
+<div class="container-fluid wrapper">
+  <div class="row">
+    <div class="col-md-12  imgCover">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <!--Navigation company Logo-->
+          <a class="navbar-brand navLogo text-danger" href="#home"><img class="navLogo"
+              src="https://static.mindvalley.com/assets/svg/mv-logo-full-white.svg" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="navbarNavDropdown" class="navbar-collapse collapse">
+            <!--Naviagation links-->
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav" *ngFor="let navigationItem of inviteContent.navigationItems">
+              <li class="nav-item">
+                <a class="nav-link text-white scroll" href="#{{navigationItem.linkid}}">{{navigationItem.name}}</a></li>
+              <li class="nav-item">
+            </ul>
+            <!-- Navigation links end here-->
+          </div>
+        </nav>
+      </div>
+
+      <div class="col-lg-6 offset-lg-6 mt-5 imgCover-text">
+        <p>{{inviteContent.firstShortdescription}}</p>
+        <h1>{{inviteContent.title}}</h1>
+        <p style="font-size:20px;">{{inviteContent.shortdescription}}</p>
+        <button type="button" class="btn btn-outline-secondary btn-lg text-dark pr-4 pl-4 playingNowButton btn-edit"><i
+            class="fa fa-film mr-1" aria-hidden="true"></i> <strong>Playing For A Limited Time</strong></button>
+        <br>
+        <button type="submit" class="btn btn-warning topbtn btn-lg mt-4 pr-5 pl-5" (click)="scroll(bookForm)"
+          data-toggle="modal" data-target=".bd-example-modal-lg">
+          <h4> RESERVE MY SPOT NOW</h4>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spot Reservation Modal starts here -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content modal-content-Reserve">
+        <div class="modal-header">
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form class="fomu p-5 text-white" [formGroup]="ReserveForm">
+
+              <p class="text-center"><b>Experience A Life-Changing Transformational Hypnotherapy Session</b></p>
+
+              <p class="text-center">This Masterclass is absolutely FREE and plays in your local time.
+                You can choose your preferred session below.</p>
+              <div class="row">
+
+                <div class="col-md-6 m-auto "><label class="aster">Name</label>
+                  <input [class.is-invalid]="ReserveForm.get('name').invalid &&
+                  ReserveForm.get('name').touched" type="text" class="form-control " formControlName="name">
+                  <small [class.d-none]="ReserveForm.get('name').valid || ReserveForm.get('name').untouched"
+                    class="text-danger">Name is required</small>
+                </div>
+
+                <div class="col-md-6 m-auto"> <label class="aster">Email</label>
+                  <input [class.is-invalid]="ReserveForm.get('email').invalid &&
+                        ReserveForm.get('email').touched" type="text" class="form-control" formControlName="email">
+                  <small [class.d-none]="ReserveForm.get('email').valid || ReserveForm.get('email').untouched"
+                    class="text-danger">Email is required</small></div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-6 m-auto"><label class="aster">Date</label>
+                  <select class="form-control" formControlName="date">
+                    <option selected>Select a day</option>
+                    <option *ngFor="let date of dates">{{date}}</option>
+                  </select></div>
+
+                <div class="col-md-6 m-auto">
+                  <label class="aster">Time</label>
+                  <select class="form-control" formControlName="time">
+                    <option selected>Select a time</option>
+                    <option *ngFor="let time of times">{{time}}</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-md btn-warning btn-block mt-4 topbtn">
+                  <h3>RESERVE MY SPOT NOW</h3>
+                </button>
+              </div>
+              <p style="font-size: 12px;" class="mt-3">By clicking the button above you are creating an account with
+                Mindvalley and agree to our <span class="text-info">Privacy Policy </span>and<span class="text-info">
+                  Terms of Use</span>, including
+                receiving emails</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Spot Reservation form ends here-->
+
+  <!-- About the session section  -->
+  <div class="container aboutEvent">
+    <div class="aboutEventContent">
+      <h1 class="text-center aboutEventHeader">In This 80-Minute Masterclass, You Will:</h1>
+      <div class="col-md-12 about" *ngFor="let aboutEvent of inviteContent.aboutEvents">
+        <p [innerHTML]="aboutEvent.description"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Images below about Section -->
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let marisaF of inviteContent.marisaFriends">
+        <div class="cont" style="position: relative; ">
+          <img [src]="marisaF.imgUrl" [alt]="marisaF.altern" class="mx-auto d-block img-fluid"
+            style="width:100%; border-radius:2px;">
+          <div class="overlay">s
+            <p class="imagesText">{{marisaF.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Images of marisa and colleagues end here -->
+
+
+
+
+
+
+  <!-- Section with Video starts here -->
+  <div class="row mb-0 mt-3 p-4 text-white videoSec">
+    <div class="container ">
+      <div class="row">
+        <div class="col-md-7 ">
+          <h3>
+            <b> Prepare yourself for a Life-Changing Transformational Hypnotherapy Session with this FREE
+              Masterclass.</b>
+          </h3>
+          <p>
+            This Masterclass is being celebrated with friends and family. If you would like to invite someone to Marisa
+            Peer’s Instant Transformational Hypnotherapy masterclass today, please share using one of the buttons on the
+            left.
+          </p>
+        </div>
+        <div class="col-md-5">
+          <video
+            src="assets/video/How To Achieve Lasting Change By Rewriting Your Subconscious Beliefs  Marisa Peer.mp4"
+            loop controls style="   width: 100%;
+          height: auto;
+         "></video>
+          <p class="text-center">Watch a masterclass trailer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section with Video ends here -->
+
+  <!-- Section showing dates and clocks -->
+  <div class="row mt-0" style="background-color: white;">
+    <div class="container mb-4 mt-4">
+      <div class="row">
+        <div class="col-md-4 col-sm-12 mt-4 mb-4" *ngFor="let duration of inviteContent.durations">
+          <div class="inner">
+            <img [src]="duration.imgUrl" style="width: 70px; height: 70px;" [alt]="duration.altern"
+              class="mx-auto d-block">
+            <h4 class="text-center"><b>{{duration.title}}</b></h4>
+            <p class="text-center">{{duration.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article of about with backround picture about Presenter-->
+  <div class="row">
+    <div class="col-md-12 aboutPresenter">
+      <div class="row">
+        <div class="container">
+          <div class="col-lg-8 mr-auto col-sm-12 text-white text-left">
+            <h2 class="pt-3 mt-3 pb-3"><b>About Marisa Peer</b></h2>
+
+            <p *ngFor=" let presentDesc of inviteContent.aboutPresenter">{{presentDesc.description}}</p>
+
+            <!--  signature here -->
+            <img src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/marisa-signature.png"
+              class="user-assets compose" alt="">
+            <hr style="height:10px;">
+
+            <p>As Seen On:</p>
+          </div>
+
+          <!--As seen onlogos here -->
+          <div class="col-md-10 col-sm-12 col-xs-12">
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item" *ngFor='let logoli of inviteContent.logos1'>
+                <img [src]="logoli.imgUrl" class="user-assets" alt="">
+              </li>
+            </ul>
+
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item" *ngFor='let logolii of inviteContent.logos2'><img [src]="logolii.imgUrl"
+                  class="user-assets" alt="">
+              </li>
+            </ul>
+          </div>
+          <!-- seen on logos end here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- About with background image ends here -->
+
+  <!-- Testimonials Carousel starts here -->
+  <div class=" row carousel slide pt-4 pb-4" data-ride="carousel" id="postsCarousel" style="background: white;">
+    <div class="container">
+      <!-- <div class="row">
+              <div class="col-xs-12 text-md-right lead">
+                  <a class="btn btn-outline-secondary prev" href="" title="go back"><i class="fa fa-lg fa-chevron-left"></i></a>
+                  <a class="btn btn-outline-secondary next" href="" title="more"><i class="fa fa-lg fa-chevron-right"></i></a>
+              </div>
+          </div> -->
+    </div>
+    <div class="container pt-2 mb-3 carousel-inner">
+      <div class="row row-equal carousel-item active m-t-0">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-7.jpg"
+                alt="Carousel 1">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">“Marisa is a fantastic therapist. Within four days I’ve seen rapid therapy and rapid
+                change with people and that is quite extraordinary.”</p>
+              <hr style="height:1em;">
+              <h5 class="">Anna Richardson</h5>
+              <p class="card-text"><small class="text-muted">Presenter, Television Producer, Writer and
+                  Journalist</small></p>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-1.jpg"
+                alt="Carousel 2">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">What I experienced in that room with Marisa changed my life — in just minutes. She
+                helped me uncover a massive “block” that I realize now has been holding me back</p>
+              <hr style="height:1em;">
+              <h5 class="">Ryan Levesque</h5>
+              <p class="card-text"><small class="text-muted">CEO & #1 National Best-Selling Author of “ASK“​. Investor &
+                  Co-Founder Bucket.io</small></p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-4.jpg"
+                alt="Carousel 3">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">“Marisa Peer has an extraordinary skill at getting people to change. Since she worked
+                with me, my life and my footballing skills have changed dramatically.”</p>
+              <hr style="height:1em;">
+              <h5 class="">Jason Roberts</h5>
+              <p class="card-text"><small class="text-muted">Premier League Football Player</small></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-equal carousel-item m-t-0">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-3.jpg"
+                alt="Carousel 4">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">“Every time I take on a new project or face a particular challenge in life, I seek
+                Marisa’s extraordinarily effective therapy. Marisa’s therapeutic work and is a hugely powerful resource
+                in my life.”</p>
+              <hr style="height:1em;">
+              <h5 class="">Gerry Cott</h5>
+              <p class="card-text"><small class="text-muted">Co-founder with Bob Geldof of the Boomtown Rats</small></p>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-8.jpg"
+                alt="Carousel 5">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">“Marisa Peer has had a huge influence on my life. Her sessions gave me power,
+                self-confidence, and has been the lesson of my life.”</p>
+              <hr style="height:1em;">
+              <h5 class="">Zuzana Bednarova</h5>
+              <p class="card-text"><small class="text-muted">Director of Operations at Accelerate Sports</small></p>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fadeIn wow">
+          <div class="card">
+            <div class="card-img-top card-img-top-250">
+              <img class="img-fluid"
+                src="https://www.mindvalley.com/uncompromised-life/assets/images/lp/testimonials/testi-tiles-6.jpg"
+                alt="Carousel 6">
+            </div>
+            <div class="card-block p-2">
+              <p class="card-text">“You have to see what she can do in 5 minutes that people search for their whole
+                lifetime.”</p>
+              <hr style="height:1em;">
+              <h5 class="">Garrett Gunderson</h5>
+              <p class="card-text"><small class="text-muted">Author of the New York Times bestseller “Killing Sacred
+                  Cows”</small></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Carousel section stops here -->
+
+  <!-- Lower Section with bg Image and Form -->
+  <div class="row lowerSection">
+    <div class="container-fluid mt-auto mb-auto">
+      <div class="col-md-6 ml-auto text-center">
+        <h2><b>Transform self-doubt into self-confidence in a single 20-minute hypnotherapy session guided by Marisa
+            Peer</b></h2>
+        <button type="button" class="btn btn-outline-secondary btn-lg text-dark pr-4 pl-4 playingNowButton"><i
+            class="fa fa-film mr-1" aria-hidden="true"></i> <strong>Playing For A Limited Time</strong></button>
+        <br>
+        <button type="submit" class="btn btn-warning topbtn btn-lg mt-4 pr-5 pl-5" (click)="scroll(bookForm)"
+          data-toggle="modal" data-target=".bd-example-modal-lg">
+          <h4> RESERVE MY SPOT NOW</h4>
+        </button>
+      </div>
+
+    </div>
+  </div>
+  <!-- Footer Section -->
+  <div class="row  p-4" style="background: white;">
+    <footer class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-4 ">
+          <img src="https://static.mindvalley.com/public/assets/2019/02/mv-logo-horizontal-gradient.svg"
+            style="width:160px;">
+        </div>
+        <div class="col-lg-5 ">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item" *ngFor="let logo of inviteContent.futa"><a class=" mr-4"
+                [href]="logo.link"><img [src]="logo.imgUrl"></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row text-center">
+        <p>On May 24 2018, we updated our <a href="/terms-of-use">Terms of Use</a> and <a href="/privacy-policy">Privacy
+            Policy</a> to reflect the EU’s new GDPR policies for protecting customer data. Your use of our services is
+          subject to these revised terms which give you more control and protection over your data.</p>
+
+      </div>
+    </footer>
+  </div>
+  <!-- footer ends here -->
+</div>
